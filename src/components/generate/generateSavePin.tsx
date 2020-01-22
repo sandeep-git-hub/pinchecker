@@ -1,44 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import {savePin} from '../../store/action/action';
-import {getPin} from '../../pin/pingenerator';
+import { useDispatch, useSelector } from 'react-redux';
+import { savePin } from '../../store/action/genSavPinAction';
+import { getPin } from '../../pin/pingenerator';
+//import {} from './generateSavePin.css';
+import './generateSavePin.css';
 
 
-interface PinProps { 
-    pins: string ;
-    generatePin: ()=> {};
+interface PinProps {
+    pins: string;
+    generatePin: () => {};
 }
 
 // React.FC will take 0 or 1 arguments
-const GenerateSavePin  = (props: PinProps) => {
+const GenerateSavePin = (props: PinProps) => {
 
     let dispatch = useDispatch();
-    let [pins, setPins] = useState('');/* (props.pins !== null && props.pins!== undefined) ?
-        props.pins.split(',').map(x => <input>{x}</input>): ''; */
-    let pinUI: JSX.Element[]=[];
-
-    useEffect(()=>{
+    let [pins, setPins] = useState('');
+    let state = useSelector(state => state);
+    console.log(`state: ${JSON.stringify(state)}`);
+    useEffect(() => {
         console.log('useEffect pin changed: ', pins);
-    }, [pins])    
-
-    return <div>
-        { pins.split(',').map(x => <input value={x} />)}
-        <button onClick={() => setPins(getPin().toString())
-                        }>Generate</button>
+    }, [pins])
+    console.log('pins ==> ', pins)
+    return <div className='center'>
+        {(pins !== '') ? <div>{pins.split(',').map(x => {
+            return <input type='text' /* style={inputStyle} */ className='inputPosition' key={x} value={x} />
+        }
+        )
+        }</div> :
+            <div>
+                <input className='inputPosition' />
+                <input className='inputPosition' />
+                <input className='inputPosition' />
+                <input className='inputPosition' />
+                <input className='inputPosition' />
+            </div>}
+        <br />
+        <button className='buttonmargin' onClick={() => setPins(getPin().toString())
+        }>Generate</button>
         <button onClick={() => dispatch(savePin(pins))}>Save</button>
     </div>
 }
 
-let mapStateToProps = state => {
-    return {
-        pins: state.pins
-    }
-}
-
-/* let mapDispatchToProps = dispatch => {
-    return {
-        generatePin: () => dispatch(generatePin())
-    }
-
-} */
 export default GenerateSavePin;

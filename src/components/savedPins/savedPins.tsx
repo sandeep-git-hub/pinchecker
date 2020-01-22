@@ -20,21 +20,25 @@ const SavePins: React.FC = (props) => {
         let pinList: string[] = state['listOfPins'];//.split('_');
         console.log(`savedPins ==> pinLIst : ${pinList}`);
         pintable = pinList.map(x => {
-            row = x.split(',').map(y => <input key={y} value={y} />)
-            return (<div key={'pin' + x.split(',')[0]}>
-                <input placeholder={
-                    x === state['element']?state['name']:namePlaceholder}
-                    onChange={(event)=>dispatch(changeName(event, x))}/>
-                    {row}<button className='button'
-                     onClick={() => dispatch(deleteItem('pin' + x.split(',')[0], x))}>
-                    Delete
-                </button></div>)
+            row = x.split(',').map(y => <input className="inputPosition" key={y} value={y} />)
+            return (
+                <div key={'pin' + x.split(',')[0]}>
+                    <input style={{ height: '40px', width: '160px', padding: '0 0 0 20px', border: '1px solid #dbdbdb' }}
+                        placeholder={x === state['element'] ? state['name'] : namePlaceholder}
+                        onChange={(event) => dispatch(changeName(event, x))} />
+                    {row}
+                    <button className='deleteButton'
+                        onClick={() => dispatch(deleteItem('pin' + x.split(',')[0], x))}>
+                        Delete
+                </button>
+                </div>
+            )
         })
 
         console.log(pintable);
     }
 
-    return (<div>
+    return (<div className='center'>
         {pintable}
     </div>)
 }

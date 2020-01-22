@@ -36,9 +36,11 @@ const GenerateSavePin = (props: PinProps) => {
                 <input className='inputPosition' />
             </div>}
         <br />
-        <button className='buttonmargin' onClick={() => setPins(getPin().toString())
-        }>Generate</button>
-        <button onClick={() => dispatch(savePin(pins))}>Save</button>
+        <div className="actionItems">
+            <button className='actionButton' onClick={() => setPins(getPin().toString())
+            }>Generate</button>
+            <button className='actionButton' id="save" onClick={() => dispatch(savePin(pins))}>Save</button>
+        </div>
     </div>
 }
 

@@ -1,6 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const savePin = (pin) => {
+export const savePin = (pininput) => {
+    let pin = null;
+    if (pininput !== null && pininput !== undefined && pininput !== ''){
+        pin = pininput;
+    }
     return {
         type: actionTypes.SAVE_PIN,
         pin: pin
@@ -35,7 +39,7 @@ export const checkState = () => {
     } 
     return {
         type: actionTypes.LIST_PINS,
-        message: 'There are no saved pins'
+        message: 'There are no saved pins currently'
     }
 }
 

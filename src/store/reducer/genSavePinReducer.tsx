@@ -14,7 +14,7 @@ const savePin = (state, action) => {
     console.log('savePin: ', action.pin);
     let pinList : string [] = state.listOfPins;
     let message = '';
-    if (pinList.find(x => x === action.pin) === undefined){
+    if (pinList.find(x => x === action.pin) === undefined && action.pin !== null){
         pinList = pinList.concat(action.pin);
     }
     localStorage.setItem('listOfPins', pinList.join('_'));

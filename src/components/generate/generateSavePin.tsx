@@ -11,7 +11,7 @@ interface PinProps {
     generatePin: () => {};
 }
 
-// React.FC will take 0 or 1 arguments
+
 const GenerateSavePin = (props: PinProps) => {
 
     let dispatch = useDispatch();

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { checkState, deleteItem, onkeydown, onchangeName } from '../../store/action/genSavPinAction';
 import './savedPins.css';
 
+
+// Note:- update the name -- name gets saved on pressing ENTER
 const SavePins: React.FC = (props) => {
 
     let state = useSelector(state => state);
@@ -12,7 +14,7 @@ const SavePins: React.FC = (props) => {
     }, []);
 
     let pintable, row;
-    // update the name -- name gets saved on pressing ENTER
+    
     if (state !== undefined) {
         let namePlaceholder: any = 'Name';
         let pinList: string[] = state['listOfPins'];

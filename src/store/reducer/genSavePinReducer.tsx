@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const listPins = (state, action) => {
-    return state;
+    return {...state,message: action.message};
 }
 
 const savePin = (state, action) => {
@@ -30,27 +30,39 @@ const savePin = (state, action) => {
 let deletePinSet = (state, action) => {
     let pinList = state.listOfPins;
     console.log('reducer => pinList: ' + JSON.stringify(pinList));
+    let message: string|null = null;
     let id = action.id.substr(3);
     pinList = pinList.filter(x => x !== action.pinSet);
     localStorage.setItem('listOfPins', pinList.join('_'));
+    if (pinList.length === 0){
+        message = 'There are no saved pins currently';
+    }
     return {
         ...state,
-        listOfPins: pinList
+        listOfPins: pinList,
+        message: message
     }
 }
 
 export const persistStateReducer = (state, action) => {
     return {
         ...state,
-        listOfPins: action.list
+        listOfPins: action.list,
+        names: action.names
     }
 }
 
 export const nameChange = (state, action) => {
+    let names: string[] | undefined = localStorage.getItem('names')? localStorage.getItem('names')?.split('-'): [];
+    names?.push(action.element + '_' + action.name);
+    if(names !== undefined) {
+        localStorage.setItem('names', names.join('-'));
+    }
     return {
         ...state,
         name: action.name,
-        element: action.element
+        element: action.element,
+        names: names
     }
 }
 

@@ -17,11 +17,9 @@ const GenerateSavePin = (props: PinProps) => {
     let dispatch = useDispatch();
     let [pins, setPins] = useState('');
     let state = useSelector(state => state);
-    console.log(`state: ${JSON.stringify(state)}`);
     useEffect(() => {
         console.log('useEffect pin changed: ', pins);
     }, [pins])
-    console.log('pins ==> ', pins)
     return <div className='center'>
         {(pins !== '') ? <div>{pins.split(',').map(x => {
             return <input type='text' /* style={inputStyle} */ className='inputPosition' key={x} value={x} />

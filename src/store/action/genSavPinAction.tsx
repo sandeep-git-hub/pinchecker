@@ -40,20 +40,22 @@ export const checkState = () => {
 }
 
 export const onchangeName = (event, element) => {
-    event.key="Enter";
+    //event.key="Enter";
     return onkeydown(event, element);
 }
 
 export const onkeydown = (event, element) => {
     let names: string[] = [];
+    let name = null;
     console.log(`changeNameAction event ${event.key}`);
     if(event.key == 'Enter'){
         console.log(`changeNameAction value: ${event.target.value}`);
         names.push(event.target.value);
+        name = event.target.value;
     }
     return {
         type: actionTypes.NAME_CHANGE,
         element,
-        name: event.target.value
+        name: name
     }
 }

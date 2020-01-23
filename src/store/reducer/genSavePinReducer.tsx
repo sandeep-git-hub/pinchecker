@@ -34,6 +34,13 @@ let deletePinSet = (state, action) => {
     let id = action.id.substr(3);
     pinList = pinList.filter(x => x !== action.pinSet);
     localStorage.setItem('listOfPins', pinList.join('_'));
+    let names: any = localStorage.getItem('names');
+    names = names?.split('-');
+    names = names?.filter(x => !x.includes(action.pinSet));
+    if (names) {
+        localStorage.setItem('names', names.join('-'));
+    }
+        
     if (pinList.length === 0){
         message = 'There are no saved pins currently';
     }
@@ -54,7 +61,8 @@ export const persistStateReducer = (state, action) => {
 
 export const nameChange = (state, action) => {
     let names: string[] | undefined = localStorage.getItem('names')? localStorage.getItem('names')?.split('-'): [];
-    names?.push(action.element + '_' + action.name);
+    if (action.name !== null)
+        names?.push(action.element + '_' + action.name);
     if(names !== undefined) {
         localStorage.setItem('names', names.join('-'));
     }

@@ -26,9 +26,11 @@ export const deleteItem = (id, elements) => {
 }
 
 export const checkState = () => {
-    let pinList = localStorage.getItem('listOfPins');
-    let pin = localStorage.getItem('pin');
+    let pinList = localStorage.getItem('listOfPins'); // _ separated pins. each pin is of format 123,234,456,222
+    let pin = localStorage.getItem('pin'); // single pin of format 123,234,456,222
     let names = localStorage.getItem('names')?.split('-'); // pinset1-pinset2-pinset3.. each pinset is 123,234,456,222_name format
+    console.log(`pinList : ${pinList}`);
+    console.log(`names : ${names}`);
     if (pinList && pin) {
         return {
             type: actionTypes.SAVED_PINS,
@@ -44,7 +46,7 @@ export const checkState = () => {
 }
 
 export const onchangeName = (event, element) => {
-    //event.key="Enter";
+    event.key="Enter";
     return onkeydown(event, element);
 }
 
@@ -52,7 +54,7 @@ export const onkeydown = (event, element) => {
     let names: string[] = [];
     let name = null;
     console.log(`changeNameAction event ${event.key}`);
-    if(event.key == 'Enter'){
+    if(event.key === 'Enter'){
         console.log(`changeNameAction value: ${event.target.value}`);
         names.push(event.target.value);
         name = event.target.value;

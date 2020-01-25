@@ -31,7 +31,6 @@ let deletePinSet = (state, action) => {
     let pinList = state.listOfPins;
     console.log('reducer => pinList: ' + JSON.stringify(pinList));
     let message: string|null = null;
-    let id = action.id.substr(3);
     pinList = pinList.filter(x => x !== action.pinSet);
     localStorage.setItem('listOfPins', pinList.join('_'));
     let names: any = localStorage.getItem('names');
@@ -64,6 +63,15 @@ export const nameChange = (state, action) => {
     if (action.name !== null)
         names?.push(action.element + '_' + action.name);
     if(names !== undefined) {
+        let count=0;
+        for(let x=0; x< names.length; x++) {
+            if (names[x].includes(action.element)) {
+                count=count + 1;
+                if (count > 1) {
+                    names.splice(x-1, 1);
+                }
+            }
+        }
         localStorage.setItem('names', names.join('-'));
     }
     return {
@@ -79,23 +87,17 @@ export const nameChange = (state, action) => {
 export const reducer = (state=initialState, action: {type: string}) => {
 
     switch(action.type) {
-        case actionTypes.LIST_PINS: {
+        case actionTypes.LIST_PINS: 
             return listPins(state, action);
-        };
-        case actionTypes.SAVE_PIN: {
+        case actionTypes.SAVE_PIN: 
             return savePin(state, action);
-        };
-        case actionTypes.SAVED_PINS: {
+        case actionTypes.SAVED_PINS: 
             return persistStateReducer(state, action);
-        };
-        case actionTypes.DELETE_PINS: {
+        case actionTypes.DELETE_PINS: 
             return deletePinSet(state, action);
-        }
-        case actionTypes.NAME_CHANGE: {
+        case actionTypes.NAME_CHANGE: 
             return nameChange(state, action);
-        }
-        default: {
+        default:
             return listPins(state, action);
-        }
     }
 }

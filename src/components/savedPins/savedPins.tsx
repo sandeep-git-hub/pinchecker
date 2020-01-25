@@ -11,10 +11,9 @@ const SavePins: React.FC = (props) => {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(checkState())
-    }, []);
+    }, [dispatch]);
 
     let pintable, row;
-    
     if (state !== undefined) {
         let namePlaceholder: any = 'Name';
         let pinList: string[] = state['listOfPins'];
@@ -25,6 +24,9 @@ const SavePins: React.FC = (props) => {
         }).forEach(element => {
            names.set(element.key, element.val); 
         }); 
+        console.log(`names : ${JSON.stringify(state['names'])}`);
+        console.log(`pinList : ${JSON.stringify(state['listOfPins'])}`);
+
         pintable = (pinList !== null && pinList !== undefined && pinList.length > 0) ? pinList.map(x => {
             row = x.split(',').map(y => <input className="inputPosition" key={y} value={y} />)
             namePlaceholder = names.get(x) 

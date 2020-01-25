@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { savePin } from '../../store/action/genSavPinAction';
 import { getPin } from '../../pin/pingenerator';
 //import {} from './generateSavePin.css';
@@ -7,8 +7,8 @@ import './generateSavePin.css';
 
 
 interface PinProps {
-    pins: string;
-    generatePin: () => {};
+    pins?: string;
+    generatePin?: () => {};
 }
 
 
@@ -16,7 +16,6 @@ const GenerateSavePin = (props: PinProps) => {
 
     let dispatch = useDispatch();
     let [pins, setPins] = useState('');
-    let state = useSelector(state => state);
     useEffect(() => {
         console.log('useEffect pin changed: ', pins);
     }, [pins])

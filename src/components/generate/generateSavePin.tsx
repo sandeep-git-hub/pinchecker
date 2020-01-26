@@ -18,7 +18,10 @@ const GenerateSavePin = (props: PinProps) => {
     let [pins, setPins] = useState('');
     useEffect(() => {
         console.log('useEffect pin changed: ', pins);
-    }, [pins])
+    }, [pins]);
+
+    let emptyInputElements = ['','','','',''];
+
     return <div className='center'>
         {(pins !== '') ? <div>{pins.split(',').map(x => {
             return <input type='text' /* style={inputStyle} */ className='inputPosition' key={x} value={x} />
@@ -26,11 +29,11 @@ const GenerateSavePin = (props: PinProps) => {
         )
         }</div> :
             <div>
-                <input className='inputPosition' />
-                <input className='inputPosition' />
-                <input className='inputPosition' />
-                <input className='inputPosition' />
-                <input className='inputPosition' />
+                {
+                    emptyInputElements.map(x => {
+                        return <input className='inputPosition'/>
+                    })
+                }
             </div>}
         <br />
         <div className="actionItems">

@@ -28,6 +28,7 @@ const savePin = (state, action) => {
 }
 // action - type, id, pinSet
 let deletePinSet = (state, action) => {
+    //
     let pinList = state.listOfPins;
     console.log('reducer => pinList: ' + JSON.stringify(pinList));
     let message: string|null = null;
@@ -59,16 +60,19 @@ export const persistStateReducer = (state, action) => {
 }
 
 export const nameChange = (state, action) => {
+    //4501,4502,4507,4510,4526_1111-1201,1205,1202,1213,1215_66
     let names: string[] | undefined = localStorage.getItem('names')? localStorage.getItem('names')?.split('-'): [];
     if (action.name !== null)
         names?.push(action.element + '_' + action.name);
     if(names !== undefined) {
-        let count=0;
+        let count=0;let index: number[]=[];
         for(let x=0; x< names.length; x++) {
             if (names[x].includes(action.element)) {
+                index.push(x);
                 count=count + 1;
                 if (count > 1) {
-                    names.splice(x-1, 1);
+                    names.splice(index[0], 1);
+                    index.splice(0);
                 }
             }
         }
